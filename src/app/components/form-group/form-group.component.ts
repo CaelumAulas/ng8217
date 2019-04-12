@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'cmail-form-group',
@@ -8,6 +9,8 @@ import { Component, OnInit, Input } from '@angular/core';
 export class FormGroupComponent implements OnInit {
 
   @Input() idCampo = '';
+  @Input('ctrl') controle: FormControl;
+
 
   constructor() { }
 

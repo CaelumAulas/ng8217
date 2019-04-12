@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { HttpClient, HttpResponseBase } from '@angular/common/http';
+import { map } from "rxjs/operators";
 
 @Component({
   selector: 'cmail-cadastro',
@@ -8,16 +10,49 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class CadastroComponent implements OnInit {
 
+  nome = new FormControl('', [Validators.required, Validators.minLength(2)]);
+  username = new FormControl('', [Validators.required, Validators.minLength(3)]);
+  telefone = new FormControl('', [Validators.required, Validators.pattern('[1-9]{4}-?[0-9]{4}[0-9]?')])
+
+  avatar = new FormControl('',Validators.required,this.validaAvatar.bind(this))
+
   formCadastro = new FormGroup({
-    nome: new FormControl(),
-    username: new FormControl(),
-    senha: new FormControl(),
-    avatar: new FormControl()
+    nome: this.nome,
+    username: this.username,
+    senha: new FormControl(''),
+    avatar: this.avatar,
+    telefone: this.telefone
   })
 
-  constructor() { }
+  constructor(private ajax: HttpClient) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  validaAvatar(controle: FormControl){
+    
+    return this.ajax.head(controle.value)
+              .pipe(
+                map((resposta) => {
+                  console.log(resposta);
+                })
+              ) 
+  }
+
+  validaTodosCampos(form: FormGroup){
+    for(let controlName in form.value){
+      form.get(controlName).markAsTouched()
+    } 
+  }
+
+  handleCadastrarUsuario(){
+
+    if(this.formCadastro.invalid){
+      this.validaTodosCampos(this.formCadastro)
+      return
+    }
+
+    console.log(this.formCadastro.value);
+    
   }
 
 }

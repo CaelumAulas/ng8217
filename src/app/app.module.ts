@@ -10,6 +10,7 @@ import { CaixaDeEntradaComponent } from './modules/caixa-de-entrada/caixa-de-ent
 import { ModuloRoteamento } from './app.routes';
 import { FormGroupComponent } from './components/form-group/form-group.component';
 import { FormFieldDirective } from './components/form-group/form-field-directive.directive';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { FormFieldDirective } from './components/form-group/form-field-directive
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    ModuloRoteamento
+    ModuloRoteamento,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

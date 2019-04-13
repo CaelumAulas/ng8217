@@ -25,7 +25,10 @@
 
             <cmail-form-group idCampo="avatar" [ctrl]="formCadastro.get('avatar')">
               <input formControlName="avatar" required type="text" name="avatar" cmailFormField>
-              <span class="mdl-textfield__error">Informar um avatar é obrigatório!</span>
+              <span *ngIf="avatar.hasError('required')" class="mdl-textfield__error">Informar um avatar é obrigatório!</span>
+              <span *ngIf="avatar.status == 'PENDING'" class="mdl-textfield__error">Verificando URL ...</span>
+              <span *ngIf="avatar.status == 'VALID'" class="mdl-textfield__error mdl-textfield__valid">URL válida ✅</span>
+              <span *ngIf="avatar.hasError('urlInvalida')" class="mdl-textfield__error">URL inválida, tente outra 🚫</span>
             </cmail-form-group>
   
             <cmail-form-group idCampo="telefone" [ctrl]="formCadastro.get('telefone')">

@@ -13,4 +13,12 @@ ul.mdl-textfield li.mdl-textfield__error {
   margin-bottom: 1rem;
   padding: .75rem 1.25rem;
   position: relative;
+  visibility: visible;
+}
+
+.mdl-textfield__error.mdl-textfield__valid {
+  border: 1px solid currentColor;
+  background-color: greenyellow;
+  color:green;
+  visibility: visible;
 }

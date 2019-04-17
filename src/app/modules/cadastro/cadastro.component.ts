@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient, HttpResponseBase, HttpErrorResponse } from '@angular/common/http';
 import { map, catchError } from "rxjs/operators";
-import { User } from 'src/app/models/dto/input/user';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'cmail-cadastro',
@@ -25,7 +25,9 @@ export class CadastroComponent implements OnInit {
     telefone: this.telefone
   })
 
-  constructor(private ajax: HttpClient, private roteador: Router) {}
+  constructor(private ajax: HttpClient
+              , private roteador: Router
+              , private servico: UserService) {}
 
   ngOnInit() {}
 
@@ -60,12 +62,10 @@ export class CadastroComponent implements OnInit {
       return
     }
 
-    const user = new User(this.formCadastro.value)
-
-    this.ajax
-        .post('http://localhost:3200/users',user)
+    this.servico
+        .cadastrar(this.formCadastro.value)
         .subscribe(
-          (resposta) => {
+          () => {
             this.roteador.navigate(['login',this.formCadastro.get('username').value])
           }
           , erro => console.log(erro)          

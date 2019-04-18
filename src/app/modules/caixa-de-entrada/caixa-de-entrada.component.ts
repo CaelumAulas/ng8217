@@ -2,15 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { Email } from '../../models/email';
 import { NgForm } from '@angular/forms';
 import { EmailService } from 'src/app/services/email.service';
+import { map, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'cmail-caixa-de-entrada',
   templateUrl: './caixa-de-entrada.component.html',
   styles: [`
-    ul, li {
+    ul {
       list-style-type: none;
       margin: 0;
       padding: 0;
+      flex-grow: 1;
     }
   `]
 })
@@ -25,7 +27,16 @@ export class CaixaDeEntradaComponent implements OnInit {
 
   constructor(private servico: EmailService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.servico
+          .carregar()
+          .subscribe(
+            (emails) => {
+              this.emailList = emails.reverse()
+              ,erro => console.log(erro)
+            }
+          )
+  }
 
   get isNewEmailOpen(){
     return this._isNewEmailOpen;
@@ -48,21 +59,36 @@ export class CaixaDeEntradaComponent implements OnInit {
         .enviar(this.email)
         .subscribe(
           (email) => {
-            console.log(email);
-
             this.emailList.push(email)
-
             this.email = new Email();
             formEmail.resetForm();
             this.toggleNewEmailForm();
-
           }
           , erro => console.log(erro)
         )
-    //...
-
-    
 
   }
+
+  removeEmail(evento){
+    console.log(evento.emailId);
+    this
+        .servico
+        .deletar(evento.emailId)
+        .subscribe((res) => {
+
+          /* let novaLista = this.emailList.filter((email)=>{
+            if(email.id != evento.emailId){
+              return email
+            }
+          })
+          */
+
+         this.emailList = this
+                          .emailList
+                          .filter(email => email.id != evento.emailId)
+          
+        })
+
+  }   
 
 }

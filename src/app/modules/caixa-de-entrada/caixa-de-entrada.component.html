@@ -5,12 +5,8 @@
         <div class="mdl-grid">
   
           <ul>
-            <li *ngFor="let email of emailList">
-              {{email.destinatario}}
-              {{email.assunto}}
-              {{email.conteudo}}
-              <cmail-list-item></cmail-list-item>
-            </li>
+              <cmail-list-item (vaiRemover)="removeEmail($event)" *ngFor="let email of emailList" [email]="email">
+              </cmail-list-item>
           </ul>
                 
           <!-- Floating Multiline Textfield -->

@@ -72,7 +72,7 @@ export class CaixaDeEntradaComponent implements OnInit {
         .enviar(this.email)
         .subscribe(
           (email) => {
-            this.emailList.push(email)
+            this.emailList.unshift(email);
             this.email = new Email();
             formEmail.resetForm();
             this.toggleNewEmailForm();
@@ -103,5 +103,20 @@ export class CaixaDeEntradaComponent implements OnInit {
         })
 
   }   
+
+
+  filtrarListaDeEmails(){
+    return this.emailList.filter( 
+      email => {
+          if(
+              email.assunto.toLowerCase().includes(this.termoDeFiltro.toLowerCase()) 
+              || email.destinatario.toLowerCase().includes(this.termoDeFiltro.toLowerCase())
+              || email.conteudo.toLowerCase().includes(this.termoDeFiltro.toLowerCase())
+          )  
+          {
+              return email
+          }
+  })
+  }
 
 }

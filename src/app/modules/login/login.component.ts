@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { LoginService } from 'src/app/services/login.service';
+import { PageDataService } from 'src/app/services/page-data.service';
 
 @Component({
   selector: 'cmail-login',
@@ -20,10 +21,12 @@ export class LoginComponent implements OnInit {
 
   constructor(private rotaAtiva: ActivatedRoute
               ,private servico: LoginService
-              ,private roteador: Router) { }
+              ,private roteador: Router
+              , private pageService: PageDataService) { }
 
   ngOnInit() {
     this.username = this.rotaAtiva.snapshot.params.username;
+    this.pageService.defineTitulo('Login');
   }
 
   handleLogin(form: NgForm){

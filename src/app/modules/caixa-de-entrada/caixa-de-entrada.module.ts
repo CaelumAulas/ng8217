@@ -7,11 +7,13 @@ import { CaixaDeEntradaRoutingModule } from './caixa-de-entrada-routing.module';
 import { EmailService } from 'src/app/services/email.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ListItemComponent } from './list-item/list-item.component';
+import { FiltroEmails } from './filtro-emails.pipe';
 
 @NgModule({
   declarations: [
     CaixaDeEntradaComponent, 
-    ListItemComponent
+    ListItemComponent,
+    FiltroEmails
   ],
   imports: [
     CommonModule,

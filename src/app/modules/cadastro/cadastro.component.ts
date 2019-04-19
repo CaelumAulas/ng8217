@@ -4,6 +4,7 @@ import { HttpClient, HttpResponseBase, HttpErrorResponse } from '@angular/common
 import { map, catchError } from "rxjs/operators";
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
+import { PageDataService } from 'src/app/services/page-data.service';
 
 @Component({
   selector: 'cmail-cadastro',
@@ -27,9 +28,12 @@ export class CadastroComponent implements OnInit {
 
   constructor(private ajax: HttpClient
               , private roteador: Router
-              , private servico: UserService) {}
+              , private servico: UserService
+              , private pageService: PageDataService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.pageService.defineTitulo('Cadastro');
+  }
 
   validaAvatar(controle: FormControl){
     

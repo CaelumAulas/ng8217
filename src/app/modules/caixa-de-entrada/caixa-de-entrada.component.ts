@@ -3,6 +3,8 @@ import { Email } from '../../models/email';
 import { NgForm } from '@angular/forms';
 import { EmailService } from 'src/app/services/email.service';
 import { map, filter } from 'rxjs/operators';
+import { PageDataService } from 'src/app/services/page-data.service';
+import { HeaderService } from 'src/app/services/header.service';
 
 @Component({
   selector: 'cmail-caixa-de-entrada',
@@ -24,8 +26,11 @@ export class CaixaDeEntradaComponent implements OnInit {
   emailList: Email[] = [];
 
   private _isNewEmailOpen = false;
+  termoDeFiltro = '';
 
-  constructor(private servico: EmailService) { }
+  constructor(private servico: EmailService
+              ,private pageService: PageDataService
+              ,private headerService: HeaderService) { }
 
   ngOnInit() {
     this.servico
@@ -35,6 +40,14 @@ export class CaixaDeEntradaComponent implements OnInit {
               this.emailList = emails.reverse()
               ,erro => console.log(erro)
             }
+          )
+
+      this.pageService.defineTitulo('Caixa de Entrada');
+
+      this.headerService
+          .valorDoFiltro
+          .subscribe(
+            valorDigitado => this.termoDeFiltro = valorDigitado
           )
   }
 

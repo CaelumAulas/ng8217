@@ -5,7 +5,7 @@
         <div class="mdl-grid">
   
           <ul>
-              <cmail-list-item (vaiRemover)="removeEmail($event)" *ngFor="let email of emailList" [email]="email">
+              <cmail-list-item (vaiRemover)="removeEmail($event)" *ngFor="let email of emailList | filtrarPorBusca:termoDeFiltro " [email]="email">
               </cmail-list-item>
           </ul>
                 

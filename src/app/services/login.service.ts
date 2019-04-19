@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class LoginService {
 
-  private readonly url = 'http://localhost:3200/login'
+  private readonly url = environment.API+'login'
 
   constructor(private http: HttpClient) { }
 
@@ -25,6 +26,5 @@ export class LoginService {
             )
 
   }
-
 
 }

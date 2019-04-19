@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { PageDataService } from 'src/app/services/page-data.service';
 import { HeaderService } from 'src/app/services/header.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'cmail-header',
@@ -15,9 +16,10 @@ export class HeaderComponent {
   isMenuOpen = false;
   tituloGlobal = 'CMail';
 
-  constructor(public pageService: PageDataService, 
-              private headerService: HeaderService){
-    
+  constructor(public pageService: PageDataService,
+              private headerService: HeaderService,
+              private router: Router){
+
     this.pageService
         .titulo
         .subscribe(
@@ -34,6 +36,11 @@ export class HeaderComponent {
 
   handleBusca({target}){
     this.headerService.atualizaFiltro(target.value)
+  }
+
+  logout(){
+    localStorage.removeItem('cmail-token');
+    this.router.navigate(['login'])
   }
 
 }

@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map, catchError } from 'rxjs/operators';
-import { Observable, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { Email } from '../models/email';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class EmailService {
 
-  private readonly url = 'http://localhost:3200/emails';
+  private readonly url = environment.API+'emails';
 
   private cabecalho = new HttpHeaders({ 'Authorization': localStorage.getItem('cmail-token') })
 
@@ -59,5 +60,9 @@ export class EmailService {
 
   deletar(id: string): Observable<Object>{
     return this.http.delete(`${this.url}/${id}`, {headers: this.cabecalho})
+  }
+
+  validaToken(){
+    return this.http.head(this.url, {headers: this.cabecalho, observe: 'response'})
   }
 }

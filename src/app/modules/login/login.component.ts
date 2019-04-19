@@ -45,10 +45,10 @@ export class LoginComponent implements OnInit {
         , (responseError: HttpErrorResponse) => {
           this.mensagemErro = responseError.error
           console.log(responseError);
-          
+
         }
       )
-    
+
   }
 
 }

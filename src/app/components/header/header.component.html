@@ -46,7 +46,7 @@
     <a [routerLink]="['..','inbox']" class="mdl-navigation__link">
       <span class="material-icons">inbox</span> Caixa de Entrada
     </a>
-    <a [routerLink]="['logout']" class="mdl-navigation__link">
+    <a (click)="logout()" class="mdl-navigation__link">
       <span class="material-icons">logout</span> Logout
     </a>
   </nav>

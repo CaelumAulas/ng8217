@@ -1,6 +1,8 @@
 import { Routes, RouterModule } from "@angular/router";
 import { NgModule } from '@angular/core';
 import { AuthGuard } from './guards/auth.guard';
+import { EmailService } from './services/email.service';
+import { HttpClientModule } from '@angular/common/http';
 
 const listaDeRotas:Routes = [
     {path: 'login', loadChildren: './modules/login/login.module#LoginModule'},
@@ -16,13 +18,15 @@ const listaDeRotas:Routes = [
 
 @NgModule({
     imports: [
-        RouterModule.forRoot(listaDeRotas)
+        RouterModule.forRoot(listaDeRotas),
+        HttpClientModule
     ],
     exports: [
         RouterModule
     ],
     providers: [
-        AuthGuard
+        AuthGuard,
+        EmailService
     ]
 })
 export class ModuloRoteamento {

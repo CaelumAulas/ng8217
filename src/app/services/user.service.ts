@@ -1,17 +1,18 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { User } from '../models/dto/input/user';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class UserService {
 
-    private readonly url = 'http://localhost:3200/users'
-    
-    constructor(private http: HttpClient){}
+  private readonly url = environment.API + 'users'
 
-    cadastrar(dadosForm){
-        const user = new User(dadosForm);
-        return this.http.post(this.url,user);
-    }
+  constructor(private http: HttpClient) { }
+
+  cadastrar(dadosForm) {
+    const user = new User(dadosForm);
+    return this.http.post(this.url, user);
+  }
 
 }
